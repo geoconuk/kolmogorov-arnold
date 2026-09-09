@@ -1,0 +1,26 @@
+name = "KolmogorovArnold"
+version = "0.1.0-dev"
+keywords = ["math", "mathlib"]
+defaultTargets = ["KolmogorovArnold"]
+
+[leanOptions]
+pp.unicode.fun = true
+# Same reasoning as the parent repository: a mistyped identifier must not silently become
+# a fresh universally quantified variable and change a statement.
+autoImplicit = false
+relaxedAutoImplicit = false
+weak.linter.mathlibStandardSet = true
+maxSynthPendingDepth = 3
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+# Held at the parent repository's pin for now, so the warm Mathlib cache is reusable and
+# imported modules need no repinning. Bump to current Mathlib before any Lean Pool handover
+# -- the pool asks for a warm build against latest, and nothing here needs Palomar's
+# ancestor-of-master constraint.
+rev = "v4.33.0"
+
+[[lean_lib]]
+name = "KolmogorovArnold"
+globs = ["KolmogorovArnold.*"]
