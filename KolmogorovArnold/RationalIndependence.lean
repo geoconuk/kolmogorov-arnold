@@ -3,7 +3,10 @@ Copyright (c) 2026 George A. Constantinides. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: George A. Constantinides (selection, specification), Claude (formalisation, proof)
 -/
-import Mathlib
+import Mathlib.NumberTheory.Transcendental.Liouville.LiouvilleNumber
+import Mathlib.RingTheory.Localization.Integral
+import Mathlib.LinearAlgebra.LinearIndependent.Defs
+import Mathlib.Algebra.Polynomial.Coeff
 
 /-!
 # Positive reals linearly independent over `ℚ`
