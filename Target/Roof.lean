@@ -39,10 +39,10 @@ depending only on `n`, such that every function `f` continuous on `[0,1]ⁿ` can
 `f(x) = ∑_{q=0}^{2n} g(∑_{p=1}^{n} λ_p ψ_q(x_p))` on the cube, for some continuous
 `g : ℝ → ℝ` depending on `f`.
 
-**Lorentz's form** (`kolmogorov_arnold_lorentz`). There are continuous `φ_{q,p} : ℝ → ℝ`
-(`q = 0, …, 2n`; `p = 1, …, n`) depending only on `n` such that every `f` continuous on
-`[0,1]ⁿ` is `f(x) = ∑_{q=0}^{2n} Φ(∑_{p=1}^{n} φ_{q,p}(x_p))` on the cube for some continuous
-`Φ : ℝ → ℝ`.
+**Lorentz's form** (`kolmogorov_arnold_lorentz`). There are continuous monotone increasing
+`φ_{q,p} : ℝ → ℝ` (`q = 0, …, 2n`; `p = 1, …, n`) depending only on `n` such that every `f`
+continuous on `[0,1]ⁿ` is `f(x) = ∑_{q=0}^{2n} Φ(∑_{p=1}^{n} φ_{q,p}(x_p))` on the cube for
+some continuous `Φ : ℝ → ℝ`.
 
 **Kolmogorov's form** (`kolmogorov_arnold`). As above but with `2n + 1` outer
 functions: `f(x) = ∑_{q=0}^{2n} Φ_q(∑_{p=1}^{n} φ_{q,p}(x_p))`.
@@ -57,60 +57,68 @@ and `n = 1` are true and trivial (`n = 1`: take every inner function to be the i
 
 ## Source
 
-Attributions follow the introduction of J. Braun and M. Griebel, *On a constructive proof of
-Kolmogorov's superposition theorem*, Constr. Approx. 30 (2009) 653–675, which states them in
-one sentence: "Lorentz showed that the outer functions Φ_q can be chosen to be the same
-[19, 20] while Sprecher proved that the inner functions ψ_{q,p} can be replaced by λ_p ψ_q with
-appropriate constants λ_p [25, 26]. A proof of Lorentz's version with one outer function that
-is based on the Baire category theorem was given by Hedberg [9] and Kahane."
+All five primaries were read on 2026-09-10 and each Lean statement compared against them; the
+comparison is recorded in the plan. What each states:
 
-- **Kolmogorov's form.** A. N. Kolmogorov, *On the representation of continuous functions of
-  several variables by superposition of continuous functions of one variable and addition*,
-  Dokl. Akad. Nauk SSSR 114 (1957) 953–956.
-- **Single outer function.** G. G. Lorentz, *Metric entropy, widths, and superpositions of
-  functions*, Amer. Math. Monthly 69 (1962) 469–485; and *Approximation of Functions*, Holt,
-  Rinehart & Winston, 1966, Ch. 11.
-- **Factored inner functions `λ_p ψ_q`.** D. A. Sprecher, *On the structure of continuous
-  functions of several variables*, Trans. Amer. Math. Soc. 115 (1965) 340–355; and *An
-  improvement in the superposition theorem of Kolmogorov*, J. Math. Anal. Appl. 38 (1972)
-  208–213.
-- **Baire-category proofs** (the route this development takes). T. Hedberg, *The Kolmogorov
-  superposition theorem*, Appendix II to H. S. Shapiro, *Topics in Approximation Theory*,
-  Lecture Notes in Math. 187, Springer, 1971, 267–275; J.-P. Kahane, *Sur le théorème de
-  superposition de Kolmogorov*, J. Approx. Theory 13 (1975) 229–234; exposition in S. Ya.
-  Khavinson, *Best Approximation by Linear Superpositions*, Transl. Math. Monogr. 159, AMS,
-  1997. The `n = 2` instance in the factored form, `f(x,y) = ∑_{k=1}^{5} h(φ_k(x) + √2 φ_k(y))`,
-  is the theorem of S. Dzhenzher and A. Skopenkov, *A structured proof of Kolmogorov's
-  Superposition Theorem*, arXiv:2105.00408.
+- **Kolmogorov**, *On the representation of continuous functions of several variables by
+  superposition of continuous functions of one variable and addition*, Dokl. Akad. Nauk SSSR
+  114 (1957) 953–956. Theorem: for `n ≥ 2` there are continuous real `ψ^{pq}` on `[0,1]` such
+  that every continuous real `f` on the cube is `∑_{q=1}^{2n+1} χ_q(∑_p ψ^{pq}(x_p))` with the
+  `χ_q` real and continuous. **No monotonicity in the statement**; a remark after his Lemma 3
+  says the constructed `ψ^{pq}` are monotonically increasing and "this property could have been
+  included in the formulation." `kolmogorov_arnold` follows the statement, not the remark.
+- **Lorentz**, *Metric entropy, widths, and superpositions of functions*, Amer. Math. Monthly
+  69 (1962) 469–485, Theorem 7 and (3): **continuous monotone increasing** inner functions
+  with values in `[0,1]`, indexed by both `p` and `q` (not factored), and a **single** outer
+  function continuous on `[0,s]`. `kolmogorov_arnold_lorentz` carries his monotonicity clause.
+  His footnote: Kolmogorov's `2s+1` outer functions versus one is "only apparently weaker …
+  in fact equivalent."
+- **Sprecher**, *On the structure of continuous functions of several variables*, Trans. Amer.
+  Math. Soc. 115 (1965) 340–355, Theorem 1: a single **monotonic increasing** Lipschitz `ψ`
+  and the shift form `∑_{q=0}^{2n} χ(∑_p λ^p ψ(x_p + εq) + q)`; the powers `λ^p` may be
+  replaced by any rationally independent `λ_p`. The factored form `λ_p ψ_q` is a corollary
+  (`ψ_q(x) := ψ(x + εq) + q/∑λ_p`). Sprecher credits the single outer function to Lorentz.
+- **Hedberg**, *The Kolmogorov superposition theorem*, Appendix II to H. S. Shapiro, *Topics
+  in Approximation Theory*, Lecture Notes in Math. 187, Springer, 1971, 267–275, Theorem 1:
+  `∑_{k=1}^{2n+1} g(∑_p λ_p φ_k(x_p))` with `φ_k ∈ C(I)`, ℚ-independent real `λ_p`, and
+  **`g ∈ C(ℝ)`** — exactly the shape of `kolmogorov_arnold_lorentz_sprecher`. Remark 2: the
+  `φ_k` can be taken **non-decreasing** by running the Baire argument in that closed subspace.
+- **Kahane**, *Sur le théorème de superposition de Kolmogorov*, J. Approx. Theory 13 (1975)
+  229–234, (5): the same form, with `Φ` the space of **increasing** continuous `φ : I → I`,
+  `φ(0) = 0`, `φ(1) = 1`, `λ_p` distinct, positive, summing to 1, `g` continuous on `I`; and
+  the remark (p. 231) that **quasi-every `φ ∈ Φ` is strictly increasing**, since for rationals
+  `ρ < ρ'` the set `{φ : φ(ρ+0) < φ(ρ'−0)}` is open and dense. Kahane credits the factoring
+  to Sprecher and the single outer function to Lorentz's book (1966, Ch. 11).
 
-Not targeted: Sprecher's further refinement to a single inner function with shifts,
-`∑_q g(∑_p λ_p ψ(x_p + qa) + q)`, as corrected by Köppen (2002) and Braun–Griebel (2009,
-Thm 2.14); it is what "Sprecher's version" usually means, and the name
-`kolmogorov_arnold_lorentz_sprecher` is deliberately not `_sprecher` alone, to avoid that
-reading.
+**Monotonicity, precisely.** Every stated theorem that has it states it *weakly*: Lorentz
+"monotone increasing", Sprecher "monotonic increasing", Hedberg "non-decreasing", Kahane
+"croissantes". `kolmogorov_arnold_lorentz` therefore says `Monotone`. The `StrictMono` in
+`kolmogorov_arnold_lorentz_sprecher` is **stronger than any stated theorem** and is kept as a
+deliberate strengthening, sourced to Kahane's remark: strictly increasing functions are a
+dense `Gδ` in the non-decreasing space, so the residual set of good tuples meets them. It
+costs one lemma and excludes constant inner functions. Decision by George, 2026-09-10.
 
-**One point not yet verified against the primary sources.** That the Baire-category proofs
-deliver the *factored* Lorentz–Sprecher form, rather than only Lorentz's, rests here on the
-Dzhenzher–Skopenkov `n = 2` statement and on secondary descriptions; Hedberg and Kahane have
-not yet been read. Layer 1 lifts its definitions from those papers and will settle it. If
-they deliver only Lorentz's form, the strongest statement here moves down one rung and the
-factored form needs Sprecher's argument.
+Other departures, all strengthenings and all deliberate: statements for every `n` (the
+sources: `n ≥ 2`; `n ≤ 1` is true and trivial); inner functions continuous on all of `ℝ`
+rather than on `[0,1]` (extend linearly, which preserves monotonicity); outer function
+continuous on `ℝ` (Hedberg states it so; the others use a compact interval — Tietze). The
+sources' normalisations — `φ(0) = 0`, `φ(1) = 1`, values in `[0,1]`, `∑λ_p = 1`,
+ℚ-independence of the `λ_p` — are proof devices and are not claimed. The `n = 2` instance in
+factored form is also the theorem of S. Dzhenzher and A. Skopenkov, *A structured proof of
+Kolmogorov's Superposition Theorem*, arXiv:2105.00408.
 
-Departures from the sources, all strengthenings and all deliberate: the inner functions are
-stated as continuous on all of `ℝ` rather than on `[0,1]` (extend linearly); the outer
-function is continuous on `ℝ` rather than on a compact interval (Tietze); strict
-monotonicity of the `ψ_q` in the Lorentz–Sprecher form is not part of the theorem as usually
-cited (neither Kolmogorov's statement as given by Braun–Griebel nor Dzhenzher–Skopenkov claims
-it) and is included because a Baire route delivers it — among continuous non-decreasing
-functions on `[0,1]` the strictly increasing ones are a dense `Gδ`, so a residual set meets
-them.
+Not targeted: Sprecher's shift form above, as corrected by Köppen (2002) and Braun–Griebel,
+Constr. Approx. 30 (2009), Thm 2.14. It is what "Sprecher's version" usually means, which is
+why the name is `_lorentz_sprecher` and not `_sprecher` alone.
 
 ## Provenance
 
-Result selected by George A. Constantinides. The target form was fixed by him against the
-sources above; the Lean statements were written by Claude and had a blind read-back before
-his read. Nothing here is proved except the two derivations and the sanity checks;
-`kolmogorov_arnold_lorentz_sprecher` is `sorry` until Layer 6.
+Result selected by George A. Constantinides. The Lean statements were written by Claude,
+had a blind read-back, and were read by George against Wikipedia's account; the primaries
+were then obtained and read on 2026-09-10 and the statements compared against them clause by
+clause, which added the monotonicity clause to Lorentz's form and produced the account above.
+George agreed the resulting change set. Nothing here is proved except the two derivations and
+the sanity checks; `kolmogorov_arnold_lorentz_sprecher` is `sorry` until Layer 6.
 
 ## Sanity checks
 
@@ -122,10 +130,12 @@ conclusion is satisfiable in a non-degenerate way — the guard an existence sta
 in place of a
 satisfiability witness for hypotheses, of which there are none. Two further `example`s
 separate the forms at the level of witnesses: the inner family `(t, 1 − t, 0)` witnesses
-Kolmogorov's form but not Lorentz's (a single `Φ` would force `f(0) = f(1)`), and `(t, t, −t)`
-witnesses Lorentz's form but is not `λ_p ψ_q` with `λ_p > 0` and `ψ_q` increasing. So the
-single outer function and the factored increasing inner functions are each a real constraint,
-not a rewording.
+Kolmogorov's form but admits no single outer function (it would force `f(0) = f(1)`), and
+`(t, t, 0)` — continuous, monotone, a single `Φ` serves every `f`, so a Lorentz witness — is
+not `λ_p ψ_q` with `λ_p > 0` and `ψ_q` strictly increasing, because a constant layer cannot
+be. So the single outer function and the strictly increasing factored inner functions are
+each a real constraint, not a rewording; the second separates on exactly the clause that is
+stronger than the stated theorems.
 
 ## Relation to Mathlib
 
@@ -141,8 +151,10 @@ namespace KolmogorovArnold
 /-- **Kolmogorov–Arnold, Lorentz–Sprecher form.** Positive constants `λ_p` and continuous
 strictly increasing `ψ_q : ℝ → ℝ`, depending only on `n`, such that every `f` continuous on
 the cube is `∑_q g (∑_p λ_p ψ_q (x_p))` for some continuous `g`. Lorentz's single outer
-function and Sprecher's factored inner functions; the strongest statement here and the one
-the development proves. `sorry` until Layer 6. -/
+function and Sprecher's factored inner functions, in the shape of Hedberg's Theorem 1 and
+Kahane's (5); strict rather than weak monotonicity per Kahane's remark that quasi-every
+increasing `φ` is strictly increasing. The strongest statement here and the one the
+development proves. `sorry` until Layer 6. -/
 theorem kolmogorov_arnold_lorentz_sprecher (n : ℕ) :
     ∃ (lam : Fin n → ℝ) (ψ : Fin (2 * n + 1) → ℝ → ℝ),
       (∀ p, 0 < lam p) ∧
@@ -153,18 +165,22 @@ theorem kolmogorov_arnold_lorentz_sprecher (n : ℕ) :
           ∀ x ∈ Icc (0 : Fin n → ℝ) 1, f x = ∑ q, g (∑ p, lam p * ψ q (x p)) := by
   sorry
 
-/-- **Kolmogorov–Arnold, Lorentz's form.** Continuous `φ_{q,p} : ℝ → ℝ` depending only on
-`n` such that every `f` continuous on the cube is `∑_q Φ (∑_p φ_{q,p} (x_p))` for a single
-continuous `Φ`. Lorentz (1962). Derived from the Lorentz–Sprecher form by
+/-- **Kolmogorov–Arnold, Lorentz's form.** Continuous monotone increasing `φ_{q,p} : ℝ → ℝ`
+depending only on `n` such that every `f` continuous on the cube is
+`∑_q Φ (∑_p φ_{q,p} (x_p))` for a single continuous `Φ`. Lorentz (1962), Theorem 7 and (3),
+whose statement includes the monotonicity. Derived from the Lorentz–Sprecher form by
 `φ_{q,p} := λ_p • ψ_q`. -/
 theorem kolmogorov_arnold_lorentz (n : ℕ) :
     ∃ φ : Fin (2 * n + 1) → Fin n → ℝ → ℝ,
       (∀ q p, Continuous (φ q p)) ∧
+      (∀ q p, Monotone (φ q p)) ∧
       ∀ f : (Fin n → ℝ) → ℝ, ContinuousOn f (Icc 0 1) →
         ∃ Φ : ℝ → ℝ, Continuous Φ ∧
           ∀ x ∈ Icc (0 : Fin n → ℝ) 1, f x = ∑ q, Φ (∑ p, φ q p (x p)) := by
-  obtain ⟨lam, ψ, -, hψc, -, h⟩ := kolmogorov_arnold_lorentz_sprecher n
-  exact ⟨fun q p t => lam p * ψ q t, fun q p => continuous_const.mul (hψc q), h⟩
+  obtain ⟨lam, ψ, hlam, hψc, hψm, h⟩ := kolmogorov_arnold_lorentz_sprecher n
+  refine ⟨fun q p t => lam p * ψ q t, fun q p => continuous_const.mul (hψc q), ?_, h⟩
+  intro q p a b hab
+  exact mul_le_mul_of_nonneg_left ((hψm q).monotone hab) (hlam p).le
 
 /-- **Kolmogorov–Arnold representation theorem** (Kolmogorov 1957). Continuous
 `φ_{q,p} : ℝ → ℝ` depending only on `n` such that every `f` continuous on the cube is
@@ -177,7 +193,7 @@ theorem kolmogorov_arnold (n : ℕ) :
       ∀ f : (Fin n → ℝ) → ℝ, ContinuousOn f (Icc 0 1) →
         ∃ Φ : Fin (2 * n + 1) → ℝ → ℝ, (∀ q, Continuous (Φ q)) ∧
           ∀ x ∈ Icc (0 : Fin n → ℝ) 1, f x = ∑ q, Φ q (∑ p, φ q p (x p)) := by
-  obtain ⟨φ, hφ, h⟩ := kolmogorov_arnold_lorentz n
+  obtain ⟨φ, hφ, -, h⟩ := kolmogorov_arnold_lorentz n
   refine ⟨φ, hφ, fun f hf => ?_⟩
   obtain ⟨Φ, hΦ, hrep⟩ := h f hf
   exact ⟨fun _ => Φ, fun _ => hΦ, hrep⟩
@@ -229,7 +245,8 @@ example :
 /-- **Lorentz's form asks more of the inner functions than Kolmogorov's.** At `n = 1` the
 inner family `(t, 1 − t, 0)` witnesses Kolmogorov's form — take `Φ₀ = f ∘ clamp` and
 `Φ₁ = Φ₂ = 0` — but no single outer function works with it: `Φ(x) + Φ(1 − x) + Φ(0)` takes the
-same value at `x = 0` and at `x = 1`, so it cannot represent `f x = x₀`. -/
+same value at `x = 0` and at `x = 1`, so it cannot represent `f x = x₀`. This separates on the
+single outer function alone, before Lorentz's monotonicity clause is even considered. -/
 example : ∃ φ : Fin 3 → Fin 1 → ℝ → ℝ,
     (∀ q p, Continuous (φ q p)) ∧
     (∀ f : (Fin 1 → ℝ) → ℝ, ContinuousOn f (Icc 0 1) →
@@ -271,20 +288,29 @@ example : ∃ φ : Fin 3 → Fin 1 → ℝ → ℝ,
     simp +decide [Fin.sum_univ_three] at h0 h1
     linarith
 
-/-- **The Lorentz–Sprecher form asks more again.** At `n = 1` the inner family `(t, t, −t)`
-witnesses Lorentz's form — a single `Φ` serves every `f` — but it is not of the shape
-`λ_p ψ_q` with `λ_p > 0` and `ψ_q` strictly increasing, since `−t` is decreasing. -/
+/-- **The Lorentz–Sprecher form asks more again, and the extra is strictness.** At `n = 1`
+the inner family `(t, t, 0)` is continuous and monotone, and a single `Φ` serves every `f` —
+so it witnesses Lorentz's form — but it is not of the shape `λ_p ψ_q` with `λ_p > 0` and `ψ_q`
+strictly increasing, because the constant layer would force `ψ₂ ≡ 0`. (Under weak
+monotonicity it *would* be of that shape, which is why strictness is the clause that
+distinguishes the two forms.) -/
 example : ∃ φ : Fin 3 → Fin 1 → ℝ → ℝ,
     (∀ q p, Continuous (φ q p)) ∧
+    (∀ q p, Monotone (φ q p)) ∧
     (∀ f : (Fin 1 → ℝ) → ℝ, ContinuousOn f (Icc 0 1) →
       ∃ Φ : ℝ → ℝ, Continuous Φ ∧
         ∀ x ∈ Icc (0 : Fin 1 → ℝ) 1, f x = ∑ q, Φ (∑ p, φ q p (x p))) ∧
     ¬ ∃ (lam : Fin 1 → ℝ) (ψ : Fin 3 → ℝ → ℝ),
         (∀ p, 0 < lam p) ∧ (∀ q, StrictMono (ψ q)) ∧ ∀ q p t, φ q p t = lam p * ψ q t := by
-  refine ⟨fun q _ t => if q = 2 then -t else t, ?_, ?_, ?_⟩
+  refine ⟨fun q _ t => if q = 2 then 0 else t, ?_, ?_, ?_, ?_⟩
   · intro q p
     dsimp only
     split_ifs <;> fun_prop
+  · intro q p
+    dsimp only
+    split_ifs
+    · exact monotone_const
+    · exact monotone_id
   · intro f hf
     set c : ℝ → (Fin 1 → ℝ) := fun t _ => (projIcc (0 : ℝ) 1 zero_le_one t : ℝ) with hc
     have hc_cont : Continuous c :=
@@ -292,12 +318,10 @@ example : ∃ φ : Fin 3 → Fin 1 → ℝ → ℝ,
     have hc_maps : ∀ t, c t ∈ Icc (0 : Fin 1 → ℝ) 1 := fun t =>
       ⟨fun _ => (projIcc (0 : ℝ) 1 zero_le_one t).2.1,
        fun _ => (projIcc (0 : ℝ) 1 zero_le_one t).2.2⟩
-    -- `Φ t = (f(clamp(max t 0)) − f(0)/3) / 2`: equal to `f(0)/3` for `t ≤ 0`, and on `[0,1]`
-    -- `2Φ(t) + Φ(−t) = (f(t) − f(0)/3) + f(0)/3 = f(t)`.
+    -- `Φ t = (f(clamp t) − f(0)/3) / 2`; on the cube `2Φ(x₀) + Φ(0) = f(x) − f(0)/3 + f(0)/3`.
     set f0 : ℝ := f (fun _ => 0) with hf0
-    refine ⟨fun t => (f (c (max t 0)) - f0 / 3) / 2, ?_, ?_⟩
-    · exact (((hf.comp_continuous hc_cont hc_maps).comp
-        (continuous_id.max continuous_const)).sub continuous_const).div_const 2
+    refine ⟨fun t => (f (c t) - f0 / 3) / 2, ?_, ?_⟩
+    · exact ((hf.comp_continuous hc_cont hc_maps).sub continuous_const).div_const 2
     · intro x hx
       have hx0 : x 0 ∈ Icc (0 : ℝ) 1 := ⟨hx.1 0, hx.2 0⟩
       have hcx : c (x 0) = x := by
@@ -307,18 +331,15 @@ example : ∃ φ : Fin 3 → Fin 1 → ℝ → ℝ,
       have hc0 : c 0 = fun _ => 0 := by
         funext i
         simp [hc]
-      have hpos : max (x 0) 0 = x 0 := max_eq_left hx0.1
-      have hneg : max (-(x 0)) 0 = 0 := max_eq_right (neg_nonpos.mpr hx0.1)
       simp +decide only [Fin.sum_univ_three, Fin.sum_univ_one, if_true, if_false,
         Fin.isValue]
-      rw [hpos, hneg, hcx, hc0, ← hf0]
+      rw [hcx, hc0, ← hf0]
       ring
   · rintro ⟨lam, ψ, hlam, hψ, h⟩
-    have e0 : -(0 : ℝ) = lam 0 * ψ 2 0 := by simpa using h 2 0 0
-    have e1 : -(1 : ℝ) = lam 0 * ψ 2 1 := by simpa using h 2 0 1
+    have e0 : (0 : ℝ) = lam 0 * ψ 2 0 := by simpa using h 2 0 0
+    have e1 : (0 : ℝ) = lam 0 * ψ 2 1 := by simpa using h 2 0 1
     have hmono : ψ 2 0 < ψ 2 1 := hψ 2 zero_lt_one
     have hl : 0 < lam 0 := hlam 0
-    rw [neg_zero] at e0
     linarith [mul_lt_mul_of_pos_left hmono hl]
 
 end KolmogorovArnold

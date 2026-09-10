@@ -108,9 +108,13 @@ is credited with each *statement*: `kolmogorov_arnold` is Kolmogorov's 1957 form
 the plain name; `kolmogorov_arnold_lorentz` is Lorentz's single-outer-function form;
 `kolmogorov_arnold_lorentz_sprecher` adds Sprecher's factored inner functions `λ_p ψ_q` and is
 the strongest, the one the proof will establish. The strongest is `sorry`; the other two are
-derived from it, and the `n = 1` case of the strongest is proved outright. Attributions follow
-Braun and Griebel, Constr. Approx. 30 (2009), §1; the Baire-category proofs are Hedberg (1971)
-and Kahane (1975). It is a separate lake target outside
+derived from it, and the `n = 1` case of the strongest is proved outright.
+
+All three were compared clause by clause against the primary papers — Kolmogorov 1957,
+Lorentz 1962, Sprecher 1965, Hedberg 1971, Kahane 1975 — on 2026-09-10; the file's `## Source`
+section records what each states and where the Lean statements deliberately go beyond them.
+The one clause stronger than any stated theorem is `StrictMono` in the strongest form, kept
+on Kahane's remark that quasi-every increasing `φ` is strictly increasing. It is a separate lake target outside
 the audited library, the arrangement `lean-misc-math` uses for a Palomar Challenge, so the
 four checks stay green while the layers are built. Build it with:
 
