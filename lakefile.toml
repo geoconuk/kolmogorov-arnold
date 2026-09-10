@@ -24,3 +24,13 @@ rev = "v4.33.0"
 [[lean_lib]]
 name = "KolmogorovArnold"
 globs = ["KolmogorovArnold.*"]
+
+# The statement surface: the theorems this development exists to prove, with the one that
+# carries the content stated `sorry`. Deliberately *not* in `defaultTargets` and outside the
+# `KolmogorovArnold.*` glob -- the same arrangement `lean-misc-math` uses for a Palomar
+# Challenge -- so that `lake build`, the audit and the three checks stay green and meaningful
+# while the layers are built. Build it explicitly with `lake build Target`. When Layer 6
+# closes the `sorry` the statements move into the library and this file becomes the Challenge.
+[[lean_lib]]
+name = "Target"
+roots = ["Target.Roof"]

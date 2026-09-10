@@ -74,7 +74,7 @@ not yet been red.
 | 3 | one approximation step | not started |
 | 4 | iteration to exact representation | not started |
 | 5 | Lorentz single-outer-function refinement | not started |
-| 6 | roof: statement and sanity checks | not started |
+| 6 | roof: statement and sanity checks | **statements fixed** in `Target/Roof.lean`, read back; proof pending |
 
 ## Relationship to `lean-misc-math`
 
@@ -99,6 +99,22 @@ that is the gate, not a fault. For day-to-day work build the single module inste
 ```bash
 lake build KolmogorovArnold.RationalIndependence
 ```
+
+## The target
+
+`Target/Roof.lean` states the three theorems this development exists to prove — the strong
+factored form the proof will produce, and the Lorentz and Kolmogorov forms the literature
+cites, derived from it. The strong form is `sorry`; everything else in the file is proved,
+including the `n = 1` case of the strong form outright. It is a separate lake target outside
+the audited library, the arrangement `lean-misc-math` uses for a Palomar Challenge, so the
+four checks stay green while the layers are built. Build it with:
+
+```bash
+lake build Target
+```
+
+It was fixed and blind-read-back on 2026-09-10, before any layer above 0 was started, so that
+the target is pinned while it is still cheap to change.
 
 ## Mathlib pin
 
