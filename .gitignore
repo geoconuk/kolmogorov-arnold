@@ -1,3 +1,7 @@
 /.lake
 .DS_Store
 *.local.md
+
+# Source papers kept locally for reference while formalising. Copyright is not ours to
+# redistribute, so these must never reach the repository -- same rule as lean-misc-math.
+/papers/
