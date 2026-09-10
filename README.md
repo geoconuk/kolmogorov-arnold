@@ -23,6 +23,33 @@ single-outer-function refinement, with the inner functions **universal**:
 The quantifier order is the point. The benchmark form asks only for `∀ f, ∃ ψ`, which lets
 the inner functions depend on `f` and is a much weaker statement.
 
+## Who did what
+
+This repository is produced with Claude (Anthropic's model, via Claude Code), and the split
+of work is the one `lean-misc-math` uses; it is stated here so that nothing below reads as a
+claim of manual work that was not done.
+
+**George A. Constantinides — selection, specification, direction, reading.** Chose the
+theorem and the target form of the statement, decided the route, the working arrangement and
+where the result will live, and reads the Lean statements. The statement read is the human
+contribution the whole arrangement depends on, and it is the only reading the statements get.
+
+**Claude — everything mechanical.** The survey of existing formalisations; the plan; the Lean
+statements and every proof term; the port of the check scripts and axiom audit from
+`lean-misc-math`; the commit messages; this README. Proofs are verified by Lean's kernel and
+audited for axioms, and are read by nobody, human or otherwise. No claim is made that they
+are novel, elegant or idiomatic — only that they are correct.
+
+The commit history is in George's name alone, as in `lean-misc-math`, because this section
+and the per-file `## Provenance` docstrings are where machine generation is disclosed; a
+trailer on every commit would repeat it without adding information. Each result module's
+header line and `## Provenance` section record the same division for that file.
+
+A blind read-back — a fresh agent given a Lean statement and nothing else, asked to write out
+what it literally asserts — is run on statements before they are read, as `lean-misc-math`
+does. On 2026-09-09 it caught `MonotoneOn` where the theorem requires strictly increasing, in
+a draft of the target statement written specifically to test for weakenings.
+
 ## Route
 
 Kahane's Baire-category proof (*Sur le théorème de superposition de Kolmogorov*,
