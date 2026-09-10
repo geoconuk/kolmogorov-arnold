@@ -27,18 +27,21 @@ the inner functions depend on `f` and is a much weaker statement.
 
 This repository is produced with Claude (Anthropic's model, via Claude Code), and the split
 of work is the one `lean-misc-math` uses; it is stated here so that nothing below reads as a
-claim of manual work that was not done.
+claim of manual work that was not done. *Development-stage wording: to be revised against
+what was actually read before this repository is made public.*
 
 **George A. Constantinides — selection, specification, direction, reading.** Chose the
 theorem and the target form of the statement, decided the route, the working arrangement and
-where the result will live, and reads the Lean statements. The statement read is the human
-contribution the whole arrangement depends on, and it is the only reading the statements get.
+where the result will live. Reads the published surface — this README and the top-level
+theorem statements — and those reads are the human contribution the arrangement depends on.
 
-**Claude — everything mechanical.** The survey of existing formalisations; the plan; the Lean
+**Claude — everything mechanical.** The survey of existing formalisations; the Lean
 statements and every proof term; the port of the check scripts and axiom audit from
-`lean-misc-math`; the commit messages; this README. Proofs are verified by Lean's kernel and
-audited for axioms, and are read by nobody, human or otherwise. No claim is made that they
-are novel, elegant or idiomatic — only that they are correct.
+`lean-misc-math`; the commit messages; the draft of this README. What gets read depends on
+what it is. The published surface above gets George's read. Proofs, supporting lemmas and
+working documents such as commit messages are verified by Lean's kernel and audited for
+axioms, but are not read by anyone, human or otherwise. No claim is made that the proofs are
+novel, elegant or idiomatic — only that they are correct.
 
 The commit history is in George's name alone, as in `lean-misc-math`, because this section
 and the per-file `## Provenance` docstrings are where machine generation is disclosed; a
