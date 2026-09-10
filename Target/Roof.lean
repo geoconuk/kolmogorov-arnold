@@ -6,6 +6,7 @@ Authors: George A. Constantinides (selection, specification), Claude (formalisat
 import Mathlib.Topology.Instances.Real.Lemmas
 import Mathlib.Topology.Order.ProjIcc
 import Mathlib.Algebra.BigOperators.Fin
+import Mathlib.Data.Fin.VecNotation
 
 /-!
 # The Kolmogorov–Arnold representation theorem — statement surface
@@ -18,11 +19,15 @@ fixed, read and read back *before* several thousand lines are built toward them.
 closes the `sorry` these statements move into the library with their proofs; this file then
 becomes the Challenge.
 
-Three statements, in decreasing strength, named for who is credited with the *statement*
-(not for the proof route): the Lorentz–Sprecher form, which is the strongest and the one the
-proof will establish; Lorentz's form; and Kolmogorov's, which carries the plain name because
-it is the theorem as proved in 1957 and as usually cited. The two weaker forms are derived
-from the strongest here.
+Three statements, each implying the next, named for who is credited with the *statement*
+(not for the proof route): the Lorentz–Sprecher form, which the proof will establish;
+Lorentz's form; and Kolmogorov's, which carries the plain name because it is the theorem as
+proved in 1957 and as usually cited. The two implications are proved here, and they are the
+whole content of "stronger" at the level of theorems — all three are true, so as closed
+propositions they are equivalent, and no claim of strictness between them is made or could be.
+What *is* shown, in the sanity checks, is that each refinement is a genuine extra demand on
+the inner functions: at `n = 1` there is an inner family that witnesses Kolmogorov's form but
+not Lorentz's, and one that witnesses Lorentz's but is not of Lorentz–Sprecher shape.
 
 ## Informal statement
 
@@ -115,7 +120,12 @@ they show the Lorentz–Sprecher form is strong enough to yield the forms that a
 the `sorry`, which demonstrates that the conjunction of conditions asked for in the
 conclusion is satisfiable in a non-degenerate way — the guard an existence statement needs
 in place of a
-satisfiability witness for hypotheses, of which there are none.
+satisfiability witness for hypotheses, of which there are none. Two further `example`s
+separate the forms at the level of witnesses: the inner family `(t, 1 − t, 0)` witnesses
+Kolmogorov's form but not Lorentz's (a single `Φ` would force `f(0) = f(1)`), and `(t, t, −t)`
+witnesses Lorentz's form but is not `λ_p ψ_q` with `λ_p > 0` and `ψ_q` increasing. So the
+single outer function and the factored increasing inner functions are each a real constraint,
+not a rewording.
 
 ## Relation to Mathlib
 
@@ -215,5 +225,100 @@ example :
         ∃ Φ : Fin 5 → ℝ → ℝ, (∀ q, Continuous (Φ q)) ∧
           ∀ x ∈ Icc (0 : Fin 2 → ℝ) 1, f x = ∑ q, Φ q (∑ p, φ q p (x p)) :=
   kolmogorov_arnold 2
+
+/-- **Lorentz's form asks more of the inner functions than Kolmogorov's.** At `n = 1` the
+inner family `(t, 1 − t, 0)` witnesses Kolmogorov's form — take `Φ₀ = f ∘ clamp` and
+`Φ₁ = Φ₂ = 0` — but no single outer function works with it: `Φ(x) + Φ(1 − x) + Φ(0)` takes the
+same value at `x = 0` and at `x = 1`, so it cannot represent `f x = x₀`. -/
+example : ∃ φ : Fin 3 → Fin 1 → ℝ → ℝ,
+    (∀ q p, Continuous (φ q p)) ∧
+    (∀ f : (Fin 1 → ℝ) → ℝ, ContinuousOn f (Icc 0 1) →
+      ∃ Φ : Fin 3 → ℝ → ℝ, (∀ q, Continuous (Φ q)) ∧
+        ∀ x ∈ Icc (0 : Fin 1 → ℝ) 1, f x = ∑ q, Φ q (∑ p, φ q p (x p))) ∧
+    ¬ (∀ f : (Fin 1 → ℝ) → ℝ, ContinuousOn f (Icc 0 1) →
+      ∃ Φ : ℝ → ℝ, Continuous Φ ∧
+        ∀ x ∈ Icc (0 : Fin 1 → ℝ) 1, f x = ∑ q, Φ (∑ p, φ q p (x p))) := by
+  refine ⟨fun q _ t => if q = 0 then t else if q = 1 then 1 - t else 0, ?_, ?_, ?_⟩
+  · intro q p
+    dsimp only
+    split_ifs <;> fun_prop
+  · intro f hf
+    set c : ℝ → (Fin 1 → ℝ) := fun t _ => (projIcc (0 : ℝ) 1 zero_le_one t : ℝ) with hc
+    have hc_cont : Continuous c :=
+      continuous_pi fun _ => continuous_subtype_val.comp continuous_projIcc
+    have hc_maps : ∀ t, c t ∈ Icc (0 : Fin 1 → ℝ) 1 := fun t =>
+      ⟨fun _ => (projIcc (0 : ℝ) 1 zero_le_one t).2.1,
+       fun _ => (projIcc (0 : ℝ) 1 zero_le_one t).2.2⟩
+    refine ⟨fun q t => if q = 0 then f (c t) else 0, ?_, ?_⟩
+    · intro q
+      by_cases hq : q = 0
+      · simp only [hq, if_true]
+        exact hf.comp_continuous hc_cont hc_maps
+      · simp only [hq, if_false]
+        exact continuous_const
+    · intro x hx
+      have hx0 : x 0 ∈ Icc (0 : ℝ) 1 := ⟨hx.1 0, hx.2 0⟩
+      have hcx : c (x 0) = x := by
+        funext i
+        obtain rfl : i = 0 := Subsingleton.elim i 0
+        simp [hc, projIcc_of_mem _ hx0]
+      rw [Finset.sum_ite_eq' Finset.univ (0 : Fin 3)]
+      simp [hcx]
+  · intro h
+    obtain ⟨Φ, -, hΦ⟩ := h (fun x => x 0) (continuous_apply 0).continuousOn
+    have h0 := hΦ (fun _ => 0) ⟨fun _ => le_rfl, fun _ => zero_le_one⟩
+    have h1 := hΦ (fun _ => 1) ⟨fun _ => zero_le_one, fun _ => le_rfl⟩
+    simp +decide [Fin.sum_univ_three] at h0 h1
+    linarith
+
+/-- **The Lorentz–Sprecher form asks more again.** At `n = 1` the inner family `(t, t, −t)`
+witnesses Lorentz's form — a single `Φ` serves every `f` — but it is not of the shape
+`λ_p ψ_q` with `λ_p > 0` and `ψ_q` strictly increasing, since `−t` is decreasing. -/
+example : ∃ φ : Fin 3 → Fin 1 → ℝ → ℝ,
+    (∀ q p, Continuous (φ q p)) ∧
+    (∀ f : (Fin 1 → ℝ) → ℝ, ContinuousOn f (Icc 0 1) →
+      ∃ Φ : ℝ → ℝ, Continuous Φ ∧
+        ∀ x ∈ Icc (0 : Fin 1 → ℝ) 1, f x = ∑ q, Φ (∑ p, φ q p (x p))) ∧
+    ¬ ∃ (lam : Fin 1 → ℝ) (ψ : Fin 3 → ℝ → ℝ),
+        (∀ p, 0 < lam p) ∧ (∀ q, StrictMono (ψ q)) ∧ ∀ q p t, φ q p t = lam p * ψ q t := by
+  refine ⟨fun q _ t => if q = 2 then -t else t, ?_, ?_, ?_⟩
+  · intro q p
+    dsimp only
+    split_ifs <;> fun_prop
+  · intro f hf
+    set c : ℝ → (Fin 1 → ℝ) := fun t _ => (projIcc (0 : ℝ) 1 zero_le_one t : ℝ) with hc
+    have hc_cont : Continuous c :=
+      continuous_pi fun _ => continuous_subtype_val.comp continuous_projIcc
+    have hc_maps : ∀ t, c t ∈ Icc (0 : Fin 1 → ℝ) 1 := fun t =>
+      ⟨fun _ => (projIcc (0 : ℝ) 1 zero_le_one t).2.1,
+       fun _ => (projIcc (0 : ℝ) 1 zero_le_one t).2.2⟩
+    -- `Φ t = (f(clamp(max t 0)) − f(0)/3) / 2`: equal to `f(0)/3` for `t ≤ 0`, and on `[0,1]`
+    -- `2Φ(t) + Φ(−t) = (f(t) − f(0)/3) + f(0)/3 = f(t)`.
+    set f0 : ℝ := f (fun _ => 0) with hf0
+    refine ⟨fun t => (f (c (max t 0)) - f0 / 3) / 2, ?_, ?_⟩
+    · exact (((hf.comp_continuous hc_cont hc_maps).comp
+        (continuous_id.max continuous_const)).sub continuous_const).div_const 2
+    · intro x hx
+      have hx0 : x 0 ∈ Icc (0 : ℝ) 1 := ⟨hx.1 0, hx.2 0⟩
+      have hcx : c (x 0) = x := by
+        funext i
+        obtain rfl : i = 0 := Subsingleton.elim i 0
+        simp [hc, projIcc_of_mem _ hx0]
+      have hc0 : c 0 = fun _ => 0 := by
+        funext i
+        simp [hc]
+      have hpos : max (x 0) 0 = x 0 := max_eq_left hx0.1
+      have hneg : max (-(x 0)) 0 = 0 := max_eq_right (neg_nonpos.mpr hx0.1)
+      simp +decide only [Fin.sum_univ_three, Fin.sum_univ_one, if_true, if_false,
+        Fin.isValue]
+      rw [hpos, hneg, hcx, hc0, ← hf0]
+      ring
+  · rintro ⟨lam, ψ, hlam, hψ, h⟩
+    have e0 : -(0 : ℝ) = lam 0 * ψ 2 0 := by simpa using h 2 0 0
+    have e1 : -(1 : ℝ) = lam 0 * ψ 2 1 := by simpa using h 2 0 1
+    have hmono : ψ 2 0 < ψ 2 1 := hψ 2 zero_lt_one
+    have hl : 0 < lam 0 := hlam 0
+    rw [neg_zero] at e0
+    linarith [mul_lt_mul_of_pos_left hmono hl]
 
 end KolmogorovArnold
