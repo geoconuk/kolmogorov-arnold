@@ -63,15 +63,15 @@ step into a density argument that Mathlib is equipped for.
 
 ## Status
 
-All four checks currently pass: `lake build` reports *axiom audit passed: 10 declarations
-across 3 modules*, and the three scripts are green. Layer 0 went in complete, so the gate has
-not yet been red.
+All four checks currently pass: `lake build` reports *axiom audit passed: 77 declarations
+across 6 modules*, and the three scripts are green. Layers 0 and 1 each went in complete, so
+the gate has not yet been red.
 
 | Layer | Content | State |
 |---|---|---|
 | 0 | positive reals linearly independent over `ℚ` | **complete, audited** |
-| 1 | inner-function space, separation property | not started |
-| 2 | genericity — the Baire step | not started |
+| 1 | inner-function space (`InnerSpace`); superposition operator and the approximation sets `U_f`, open (`Superposition`); quasi-every monotone function is strictly increasing (`StrictlyIncreasing`) | **complete, audited** |
+| 2 | genericity — density of `U_f`, the Baire step | not started |
 | 3 | one approximation step | not started |
 | 4 | iteration to exact representation | not started |
 | 5 | Lorentz single-outer-function refinement | not started |
@@ -95,11 +95,13 @@ lake build && ./scripts/check-imports.sh && ./scripts/check-conventions.sh && ./
 ```
 
 `lake build` runs the axiom audit, so **it is red whenever any layer still carries `sorry`** —
-that is the gate, not a fault. For day-to-day work build the single module instead:
+that is the gate, not a fault. For day-to-day work build the single module instead, e.g.
 
 ```bash
-lake build KolmogorovArnold.RationalIndependence
+lake build KolmogorovArnold.Superposition
 ```
+
+Each module imports only the Mathlib it uses, so one builds in seconds once Mathlib is warm.
 
 ## The target
 
