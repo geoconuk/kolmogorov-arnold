@@ -113,12 +113,14 @@ why the name is `_lorentz_sprecher` and not `_sprecher` alone.
 
 ## Provenance
 
-Result selected by George A. Constantinides. The Lean statements were written by Claude,
-had a blind read-back, and were read by George against Wikipedia's account; the primaries
-were then obtained and read on 2026-09-10 and the statements compared against them clause by
-clause, which added the monotonicity clause to Lorentz's form and produced the account above.
-George agreed the resulting change set. Nothing here is proved except the two derivations and
-the sanity checks; `kolmogorov_arnold_lorentz_sprecher` is `sorry` until Layer 6.
+Result selected by George A. Constantinides. The Lean statements were written by Claude and
+had a blind read-back; the primaries were obtained and read on 2026-09-10 and the statements
+compared against them clause by clause, which added the monotonicity clause to Lorentz's form
+and produced the account above. **George then read all three statements against the papers
+themselves, at the page references recorded in the plan, and agreed them on 2026-09-10.** That
+read is the human contribution this file's statements rest on. Nothing here is proved except
+the two derivations and the sanity checks; `kolmogorov_arnold_lorentz_sprecher` is `sorry`
+until Layer 6. If a statement changes, it is re-read.
 
 ## Sanity checks
 

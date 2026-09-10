@@ -75,7 +75,7 @@ not yet been red.
 | 3 | one approximation step | not started |
 | 4 | iteration to exact representation | not started |
 | 5 | Lorentz single-outer-function refinement | not started |
-| 6 | roof: statement and sanity checks | **statements fixed** in `Target/Roof.lean`, read back; proof pending |
+| 6 | roof: statement and sanity checks | **statements fixed** in `Target/Roof.lean`, read back, checked against the primaries, read by George; proof pending |
 
 ## Relationship to `lean-misc-math`
 
@@ -123,7 +123,8 @@ lake build Target
 ```
 
 It was fixed and blind-read-back on 2026-09-10, before any layer above 0 was started, so that
-the target is pinned while it is still cheap to change.
+the target is pinned while it is still cheap to change; George read the three statements
+against the primary papers the same day and agreed them. A statement that changes is re-read.
 
 ## Mathlib pin
 
