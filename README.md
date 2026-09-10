@@ -13,12 +13,13 @@ Ceti, the Palomar registry, or any other proof assistant. The `lean-eval` benchm
 seven accepted solutions of a weakened form of it, but every one is unpublished and two have
 had their sources permanently lost, so there is nothing to read or build on.
 
-The target here is the theorem as it is actually cited — Kolmogorov 1957 with Lorentz's
-single-outer-function refinement, with the inner functions **universal**:
+The target here is the Lorentz–Sprecher form — Kolmogorov 1957 with Lorentz's single outer
+function and Sprecher's factored inner functions — with the inner functions **universal**:
 
-> There are continuous strictly increasing `ψ_{q,l} : ℝ → ℝ`, for `q ∈ Fin (2n+1)` and
-> `l ∈ Fin n`, depending only on `n`, such that for every continuous `f : [0,1]ⁿ → ℝ` there
-> is a continuous `g : ℝ → ℝ` with `f(x) = ∑_q g (∑_l ψ_{q,l} (x_l))` on the cube.
+> There are positive constants `λ_p` and continuous strictly increasing `ψ_q : ℝ → ℝ`, for
+> `q ∈ Fin (2n+1)` and `p ∈ Fin n`, depending only on `n`, such that for every continuous
+> `f : [0,1]ⁿ → ℝ` there is a continuous `g : ℝ → ℝ` with
+> `f(x) = ∑_q g (∑_p λ_p ψ_q (x_p))` on the cube.
 
 The quantifier order is the point. The benchmark form asks only for `∀ f, ∃ ψ`, which lets
 the inner functions depend on `f` and is a much weaker statement.
@@ -102,10 +103,14 @@ lake build KolmogorovArnold.RationalIndependence
 
 ## The target
 
-`Target/Roof.lean` states the three theorems this development exists to prove — the strong
-factored form the proof will produce, and the Lorentz and Kolmogorov forms the literature
-cites, derived from it. The strong form is `sorry`; everything else in the file is proved,
-including the `n = 1` case of the strong form outright. It is a separate lake target outside
+`Target/Roof.lean` states the three theorems this development exists to prove, named for who
+is credited with each *statement*: `kolmogorov_arnold` is Kolmogorov's 1957 form and carries
+the plain name; `kolmogorov_arnold_lorentz` is Lorentz's single-outer-function form;
+`kolmogorov_arnold_lorentz_sprecher` adds Sprecher's factored inner functions `λ_p ψ_q` and is
+the strongest, the one the proof will establish. The strongest is `sorry`; the other two are
+derived from it, and the `n = 1` case of the strongest is proved outright. Attributions follow
+Braun and Griebel, Constr. Approx. 30 (2009), §1; the Baire-category proofs are Hedberg (1971)
+and Kahane (1975). It is a separate lake target outside
 the audited library, the arrangement `lean-misc-math` uses for a Palomar Challenge, so the
 four checks stay green while the layers are built. Build it with:
 
