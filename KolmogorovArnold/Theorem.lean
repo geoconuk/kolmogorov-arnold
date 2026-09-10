@@ -3,32 +3,43 @@ Copyright (c) 2026 George A. Constantinides. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: George A. Constantinides (selection, specification), Claude (formalisation, proof)
 -/
+import KolmogorovArnold.Representation
 import Mathlib.Topology.Instances.Real.Lemmas
 import Mathlib.Topology.Order.ProjIcc
 import Mathlib.Algebra.BigOperators.Fin
 import Mathlib.Data.Fin.VecNotation
 
 /-!
-# The Kolmogorov–Arnold representation theorem — statement surface
+# The Kolmogorov–Arnold representation theorem
 
-**This file is the statement surface, not the result.** It states the theorems this development
-exists to prove, and the one that carries the content is `sorry`. It lives outside the audited
-library on purpose — the same arrangement `lean-misc-math` uses for a Palomar Challenge — so
-that the audit stays green and meaningful, and so that the statements were fixed, read and read
-back *before* the layers were built toward them. **The theorems are now proved**, with these
-statements unchanged, in `KolmogorovArnold/Theorem.lean`; `Target/TypeCheck.lean` ascribes each
-statement here to the library's theorem, so the two cannot drift apart without a build failing.
-This file is the Challenge.
+The roof of the Kolmogorov–Arnold development: the theorem stated on all of `ℝ`, in the three
+forms fixed in `Target/Roof.lean` before any layer was built, now proved. Every continuous
+function on the `n`-cube is a superposition `∑_q g (∑_p λ_p ψ_q (x_p))` of a single continuous
+outer function `g`, which depends on `f`, with continuous strictly increasing inner functions
+`ψ_q` and positive constants `λ_p` that depend only on `n`.
 
 Three statements, each implying the next, named for who is credited with the *statement*
-(not for the proof route): the Lorentz–Sprecher form, which the proof will establish;
-Lorentz's form; and Kolmogorov's, which carries the plain name because it is the theorem as
-proved in 1957 and as usually cited. The two implications are proved here, and they are the
-whole content of "stronger" at the level of theorems — all three are true, so as closed
-propositions they are equivalent, and no claim of strictness between them is made or could be.
-What *is* shown, in the sanity checks, is that each refinement is a genuine extra demand on
-the inner functions: at `n = 1` there is an inner family that witnesses Kolmogorov's form but
-not Lorentz's, and one that witnesses Lorentz's but is not of Lorentz–Sprecher shape.
+(not for the proof route): the Lorentz–Sprecher form, which the proof establishes; Lorentz's
+form; and Kolmogorov's, which carries the plain name because it is the theorem as proved in
+1957 and as usually cited. The two implications are proved here, and they are the whole
+content of "stronger" at the level of theorems — all three are true, so as closed propositions
+they are equivalent, and no claim of strictness between them is made or could be. What *is*
+shown, in the sanity checks, is that each refinement is a genuine extra demand on the inner
+functions: at `n = 1` there is an inner family that witnesses Kolmogorov's form but not
+Lorentz's, and one that witnesses Lorentz's but is not of Lorentz–Sprecher shape.
+
+**The proof** is the Baire-category argument of Hedberg (1971) and Kahane (1975), built in the
+layers below this module. On the space of `(2n+1)`-tuples of monotone continuous functions
+`[0,1] → ℝ`, the tuples admitting a one-step approximation of a given `f` form an open set
+(`Superposition`) which is dense (`Density`, resting on Hedberg's red intervals in `Cells`, the
+staircase approximants of `Staircase`, and the rational levels of `Levels`, whose cell map is
+injective by the rational independence of the `λ_p` from `RationalIndependence`). Intersecting
+over a countable dense set of `f` and with the dense `Gδ` of strictly increasing tuples
+(`StrictlyIncreasing`) gives one tuple that approximates every `f` in one step (`Generic`);
+iterating on the residual and summing the geometric series gives exact representation on the
+cube (`Representation`). This module extends the inner functions from `[0,1]` to `ℝ` by
+`ψ(clamp t) + (t - clamp t)`, which keeps them continuous and strictly increasing, and reads the
+representation back on the cube.
 
 ## Informal statement
 
@@ -54,7 +65,7 @@ the weaker `∀ f, ∃ φ` form that the `lean-eval` benchmark poses.
 
 The statements are made for every `n`. The literature states `n ≥ 2`; the cases `n = 0`
 and `n = 1` are true and trivial (`n = 1`: take every inner function to be the identity and
-`g = f/3`), and the sanity checks below prove `n = 1` directly.
+`g = f/3`), and the sanity checks below prove `n = 1` directly, without the theorem.
 
 ## Source
 
@@ -114,43 +125,77 @@ why the name is `_lorentz_sprecher` and not `_sprecher` alone.
 
 ## Provenance
 
-Result selected by George A. Constantinides. The Lean statements were written by Claude and
-had a blind read-back; the primaries were obtained and read on 2026-09-10 and the statements
-compared against them clause by clause, which added the monotonicity clause to Lorentz's form
-and produced the account above. **George then read all three statements against the papers
-themselves, at the page references recorded in the plan, and agreed them on 2026-09-10.** That
-read is the human contribution this file's statements rest on. Nothing here is proved except
-the two derivations and the sanity checks; `kolmogorov_arnold_lorentz_sprecher` is `sorry` here
-as the Challenge surface, and is proved, with this statement, in `KolmogorovArnold/Theorem.lean`.
-If a statement changes, it is re-read.
+Result selected by George A. Constantinides. The Lean statements were fixed in
+`Target/Roof.lean` on 2026-09-10, before any layer above 0 was built: they were written by
+Claude, had a blind read-back, were compared clause by clause against the five primaries, and
+were then read by George against the papers themselves at the page references recorded in the
+plan, and agreed. The statements here are those statements, unchanged; `Target/TypeCheck.lean`
+ascribes each Target statement to the theorem proved here, so a drift between the two would
+fail to build. The proofs, and the supporting modules they rest on, are machine-generated and
+have not been read by anyone; they are verified by Lean's kernel and audited for axioms.
 
 ## Sanity checks
 
 The derivations `kolmogorov_arnold_lorentz` and `kolmogorov_arnold` are themselves checks:
 they show the Lorentz–Sprecher form is strong enough to yield the forms that are cited. The
 `example`s prove the `n = 1` case of the Lorentz–Sprecher form outright, with no appeal to
-the `sorry`, which demonstrates that the conjunction of conditions asked for in the
+the theorem, which demonstrates that the conjunction of conditions asked for in the
 conclusion is satisfiable in a non-degenerate way — the guard an existence statement needs
-in place of a
-satisfiability witness for hypotheses, of which there are none. Two further `example`s
-separate the forms at the level of witnesses: the inner family `(t, 1 − t, 0)` witnesses
-Kolmogorov's form but admits no single outer function (it would force `f(0) = f(1)`), and
-`(t, t, 0)` — continuous, monotone, a single `Φ` serves every `f`, so a Lorentz witness — is
-not `λ_p ψ_q` with `λ_p > 0` and `ψ_q` strictly increasing, because a constant layer cannot
-be. So the single outer function and the strictly increasing factored inner functions are
-each a real constraint, not a rewording; the second separates on exactly the clause that is
-stronger than the stated theorems.
+in place of a satisfiability witness for hypotheses, of which there are none. Two further
+`example`s separate the forms at the level of witnesses: the inner family `(t, 1 − t, 0)`
+witnesses Kolmogorov's form but admits no single outer function (it would force
+`f(0) = f(1)`), and `(t, t, 0)` — continuous, monotone, a single `Φ` serves every `f`, so a
+Lorentz witness — is not `λ_p ψ_q` with `λ_p > 0` and `ψ_q` strictly increasing, because a
+constant layer cannot be. So the single outer function and the strictly increasing factored
+inner functions are each a real constraint, not a rewording; the second separates on exactly
+the clause that is stronger than the stated theorems.
 
 ## Relation to Mathlib
 
-Nothing in Mathlib states or approaches this theorem; see the survey in the plan. The
-statements use only `Continuous`, `ContinuousOn`, `StrictMono`, `Set.Icc` on `Fin n → ℝ`,
-and finite sums.
+Nothing in Mathlib states or approaches this theorem. The statements use only `Continuous`,
+`ContinuousOn`, `StrictMono`, `Monotone`, `Set.Icc` on `Fin n → ℝ`, and finite sums, so a
+Palomar Challenge can restate them from Mathlib alone.
 -/
 
-open Set
+open Set unitInterval
 
 namespace KolmogorovArnold
+
+namespace Inner
+
+/-- The extension of an inner function from `I` to `ℝ`: `ψ(clamp t) + (t - clamp t)`. It agrees
+with `ψ` on `I`, is continuous, and is strictly increasing whenever `ψ` is: off `I` the second
+term increases strictly, and on `I` the first does. -/
+noncomputable def extend (φ : Inner) (t : ℝ) : ℝ :=
+  (φ : C(I, ℝ)) (projIcc 0 1 zero_le_one t) + (t - (projIcc 0 1 zero_le_one t : ℝ))
+
+theorem extend_of_mem (φ : Inner) {t : ℝ} (ht : t ∈ Icc (0 : ℝ) 1) :
+    φ.extend t = (φ : C(I, ℝ)) ⟨t, ht⟩ := by
+  unfold extend
+  rw [projIcc_of_mem _ ht]
+  simp
+
+theorem continuous_extend (φ : Inner) : Continuous φ.extend := by
+  unfold extend
+  exact ((φ : C(I, ℝ)).continuous.comp continuous_projIcc).add
+    (continuous_id.sub (continuous_subtype_val.comp continuous_projIcc))
+
+theorem extend_strictMono (φ : Inner) (hφ : StrictMono (φ : C(I, ℝ))) : StrictMono φ.extend := by
+  intro a b hab
+  unfold extend
+  have hmono : projIcc (0 : ℝ) 1 zero_le_one a ≤ projIcc 0 1 zero_le_one b :=
+    monotone_projIcc _ hab.le
+  have hlip : (projIcc (0 : ℝ) 1 zero_le_one b : ℝ) - projIcc 0 1 zero_le_one a ≤ b - a := by
+    have := Set.abs_projIcc_sub_projIcc (zero_le_one : (0 : ℝ) ≤ 1) (c := b) (d := a)
+    rwa [abs_of_nonneg (sub_nonneg.mpr (Subtype.coe_le_coe.mpr hmono)),
+      abs_of_pos (sub_pos.mpr hab)] at this
+  rcases hmono.lt_or_eq with hlt | heq
+  · have := hφ hlt
+    linarith
+  · rw [heq]
+    linarith
+
+end Inner
 
 /-- **Kolmogorov–Arnold, Lorentz–Sprecher form.** Positive constants `λ_p` and continuous
 strictly increasing `ψ_q : ℝ → ℝ`, depending only on `n`, such that every `f` continuous on
@@ -158,8 +203,7 @@ the cube is `∑_q g (∑_p λ_p ψ_q (x_p))` for some continuous `g`. Lorentz's
 function and Sprecher's factored inner functions, in the shape of Hedberg's Theorem 1 and
 Kahane's (5); strict rather than weak monotonicity per Kahane's remark that quasi-every
 increasing `φ` is strictly increasing. The strongest statement here and the one the
-development proves — in `KolmogorovArnold/Theorem.lean`; `sorry` here as the Challenge
-surface. -/
+development proves. -/
 theorem kolmogorov_arnold_lorentz_sprecher (n : ℕ) :
     ∃ (lam : Fin n → ℝ) (ψ : Fin (2 * n + 1) → ℝ → ℝ),
       (∀ p, 0 < lam p) ∧
@@ -168,7 +212,25 @@ theorem kolmogorov_arnold_lorentz_sprecher (n : ℕ) :
       ∀ f : (Fin n → ℝ) → ℝ, ContinuousOn f (Icc 0 1) →
         ∃ g : ℝ → ℝ, Continuous g ∧
           ∀ x ∈ Icc (0 : Fin n → ℝ) 1, f x = ∑ q, g (∑ p, lam p * ψ q (x p)) := by
-  sorry
+  obtain ⟨lam, hlampos, hlam⟩ := exists_pos_linearIndependent_rat n
+  obtain ⟨ψ, hψ, hrep⟩ := exists_universal_tuple_apply hlam
+  refine ⟨lam, fun q => (ψ q).extend, hlampos, fun q => (ψ q).continuous_extend,
+    fun q => (ψ q).extend_strictMono (hψ q), fun f hf => ?_⟩
+  -- Restrict `f` to the cube, as a continuous map on `Fin n → I`.
+  have hcoe : Continuous fun x : Fin n → I => fun p => (x p : ℝ) :=
+    continuous_pi fun p => continuous_subtype_val.comp (continuous_apply p)
+  have hmaps : ∀ x : Fin n → I, (fun p => (x p : ℝ)) ∈ Icc (0 : Fin n → ℝ) 1 :=
+    fun x => ⟨fun p => (x p).2.1, fun p => (x p).2.2⟩
+  obtain ⟨g, hg⟩ := hrep ⟨fun x => f fun p => (x p : ℝ), hf.comp_continuous hcoe hmaps⟩
+  refine ⟨g, g.continuous, fun x hx => ?_⟩
+  have := hg fun p => ⟨x p, hx.1 p, hx.2 p⟩
+  rw [ContinuousMap.coe_mk] at this
+  rw [this]
+  refine Finset.sum_congr rfl fun q _ => ?_
+  congr 1
+  refine Finset.sum_congr rfl fun p _ => ?_
+  congr 1
+  exact ((ψ q).extend_of_mem ⟨hx.1 p, hx.2 p⟩).symm
 
 /-- **Kolmogorov–Arnold, Lorentz's form.** Continuous monotone increasing `φ_{q,p} : ℝ → ℝ`
 depending only on `n` such that every `f` continuous on the cube is
@@ -207,7 +269,7 @@ theorem kolmogorov_arnold (n : ℕ) :
 
 /-- The `n = 1` case of the Lorentz–Sprecher form, proved outright: every inner function the
 identity, `λ = 1`, and `g = f ∘ clamp / 3`. Shows the conclusion's conjunction of conditions is
-satisfiable without appeal to the `sorry` above. -/
+satisfiable without appeal to the theorem above. -/
 example :
     ∃ (lam : Fin 1 → ℝ) (ψ : Fin (2 * 1 + 1) → ℝ → ℝ),
       (∀ p, 0 < lam p) ∧

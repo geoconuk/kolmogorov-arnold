@@ -69,6 +69,8 @@ def id : Inner := ⟨⟨Subtype.val, continuous_subtype_val⟩, fun _ _ h => h�
 
 @[simp] theorem coe_id_apply (t : I) : (id : C(I, ℝ)) t = t := rfl
 
+instance : Nonempty Inner := ⟨id⟩
+
 /-- Adding a non-negative multiple of the identity to an inner function. -/
 def addSmulId (φ : Inner) (c : ℝ) (hc : 0 ≤ c) : Inner :=
   ⟨(φ : C(I, ℝ)) + c • (id : C(I, ℝ)), fun a b hab => by

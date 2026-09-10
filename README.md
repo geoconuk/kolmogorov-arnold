@@ -1,10 +1,11 @@
 # Kolmogorov–Arnold
 
-A Lean 4 formalisation of the Kolmogorov–Arnold representation theorem, in progress.
+A Lean 4 formalisation of the Kolmogorov–Arnold representation theorem.
 
-**Private work in progress.** Nothing here is finished, and modules carry `sorry` until a
-layer is complete. This repository is made public only when the development is done; see
-*Status* below for where it actually is.
+**Private, pending the handover.** The development is complete and `sorry`-free: the theorem
+is proved in `KolmogorovArnold/Theorem.lean` in the three forms fixed in `Target/Roof.lean`
+before any layer was built. This repository is made public only after the handover to
+`lean-misc-math` described below; see *Status* for where it actually is.
 
 ## What this is for
 
@@ -56,26 +57,37 @@ a draft of the target statement written specifically to test for weakenings.
 
 ## Route
 
-Kahane's Baire-category proof (*Sur le théorème de superposition de Kolmogorov*,
-J. Approx. Theory **13** (1975) 229–234), not the explicit construction: the tuples of inner
-functions that work are residual in `C([0,1])^{2n+1}`, which turns the hard combinatorial
-step into a density argument that Mathlib is equipped for.
+The Baire-category proof of Hedberg (*The Kolmogorov superposition theorem*, Appendix II to
+H. S. Shapiro, *Topics in Approximation Theory*, LNM 187, Springer, 1971, pp. 267–275) and
+Kahane (*Sur le théorème de superposition de Kolmogorov*, J. Approx. Theory **13** (1975)
+229–234), not the explicit construction: the tuples of inner functions that work are residual in
+the space of monotone continuous functions `[0,1] → ℝ` to the power `2n+1`, which turns the hard
+combinatorial step into a density argument that Mathlib is equipped for. Hedberg supplied the
+lemma structure and the rational levels with rationally independent `λ_p`; Kahane the
+general-`n` interval system, the monotone space, and the remark that quasi-every monotone
+function is strictly increasing, which is what pays for the `StrictMono` clause. The module
+docstrings under `KolmogorovArnold/` record, layer by layer, what was taken from where and
+where the formalisation departs.
 
 ## Status
 
-All four checks currently pass: `lake build` reports *axiom audit passed: 77 declarations
-across 6 modules*, and the three scripts are green. Layers 0 and 1 each went in complete, so
-the gate has not yet been red.
+All four checks pass: `lake build` reports *axiom audit passed: 200 declarations across 14
+modules*, and the three scripts are green. Every layer went in complete, so the gate was never
+red. `Target/TypeCheck.lean` ascribes the three fixed target statements to the library's
+theorems, so the statements proved are the statements that were read.
 
 | Layer | Content | State |
 |---|---|---|
-| 0 | positive reals linearly independent over `ℚ` | **complete, audited** |
+| 0 | positive reals linearly independent over `ℚ` (`RationalIndependence`) | **complete, audited** |
 | 1 | inner-function space (`InnerSpace`); superposition operator and the approximation sets `U_f`, open (`Superposition`); quasi-every monotone function is strictly increasing (`StrictlyIncreasing`) | **complete, audited** |
-| 2 | genericity — density of `U_f`, the Baire step | not started |
-| 3 | one approximation step | not started |
-| 4 | iteration to exact representation | not started |
-| 5 | Lorentz single-outer-function refinement | not started |
-| 6 | roof: statement and sanity checks | **statements fixed** in `Target/Roof.lean`, read back, checked against the primaries, read by George; proof pending |
+| 2 | density of `U_f` — the Baire step (`Cells`, `Staircase`, `Levels`, `Approximant`, `Density`) | **complete, audited** |
+| 3 | one approximation step for every `f`, from a generic tuple (`Generic`) | **complete, audited** |
+| 4 | iteration to exact representation on the cube (`Representation`) | **complete, audited** |
+| 5–6 | extension of the inner functions to `ℝ`; the three theorems and their sanity checks (`Theorem`) | **complete, audited** |
+
+What remains is not Lean: George's read of the result-module statements added since the target
+was fixed (listed in the parent repository's resume note), the handover into `lean-misc-math`,
+and the publication steps, each on his instruction.
 
 ## Relationship to `lean-misc-math`
 
@@ -109,8 +121,10 @@ Each module imports only the Mathlib it uses, so one builds in seconds once Math
 is credited with each *statement*: `kolmogorov_arnold` is Kolmogorov's 1957 form and carries
 the plain name; `kolmogorov_arnold_lorentz` is Lorentz's single-outer-function form;
 `kolmogorov_arnold_lorentz_sprecher` adds Sprecher's factored inner functions `λ_p ψ_q` and is
-the strongest, the one the proof will establish. The strongest is `sorry`; the other two are
-derived from it, and the `n = 1` case of the strongest is proved outright.
+the strongest, the one the proof establishes. In the Target the strongest is `sorry` and the
+other two are derived from it; in `KolmogorovArnold/Theorem.lean` all three are proved with the
+same statements, and `Target/TypeCheck.lean` (`lake build TargetTypeCheck`) checks that they
+are the same.
 
 All three were compared clause by clause against the primary papers — Kolmogorov 1957,
 Lorentz 1962, Sprecher 1965, Hedberg 1971, Kahane 1975 — on 2026-09-10; the file's `## Source`
@@ -125,8 +139,9 @@ lake build Target
 ```
 
 It was fixed and blind-read-back on 2026-09-10, before any layer above 0 was started, so that
-the target is pinned while it is still cheap to change; George read the three statements
-against the primary papers the same day and agreed them. A statement that changes is re-read.
+the target was pinned while it was still cheap to change; George read the three statements
+against the primary papers the same day and agreed them. No statement changed during the
+development.
 
 ## Mathlib pin
 
