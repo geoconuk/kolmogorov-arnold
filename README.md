@@ -90,9 +90,13 @@ The strict monotonicity of the `ψ_q` in `kolmogorov_arnold_lorentz_sprecher` is
 than any theorem the five primaries state and rests on Kahane's remark; the refinement is
 stated as Theorem 4.2 of S. A. Morris, *Hilbert 13: Are there any genuine continuous
 multivariate real-valued functions?*, Bull. Amer. Math. Soc. 58 (2021) 107–118. The other
-departures are all strengthenings: statements for every `n`, inner and outer functions
-continuous on all of `ℝ` rather than on an interval, and no normalisation of the `λ_p` or
-the `ψ_q` claimed.
+departures run in both directions: strengthened — statements for every `n`, inner and outer
+functions continuous on all of `ℝ` rather than on an interval; omitted — the conditions the
+sources place on the objects they construct (Kahane's normalisations, Hedberg's rational
+independence of the `λ_p`, Lorentz's range `[0,1]`, Sprecher's Hölder class), which the
+conclusions neither assert nor imply. So against each source's own formulation the theorems
+strengthen some clauses and omit others; Kolmogorov's statement, which carries no such
+condition, is strengthened and nothing of it omitted.
 
 ## The proof
 
@@ -176,9 +180,14 @@ weakenings.
 
 The commit history is in George's name alone; this section, the `Authors:` line heading
 every module under `KolmogorovArnold/` apart from the audit tooling, and the `## Provenance`
-docstrings of the seven modules that carry one are where machine generation is disclosed. An
-independent review of the published copy on 2026-09-11 found no defect in the three
-statements or the proof chain and five defects in the prose, all corrected here as well.
+docstrings of the seven modules that carry one are where machine generation is disclosed.
+No human has read the proofs. One machine read is on record: on 2026-09-11 an independent
+review of the published copy by an OpenAI Codex agent rebuilt it from a fresh export, re-ran
+the audit and the three guards, elaborated its own independently written ascriptions of the
+three statements against the shipped theorems, and read the roof and all twelve support
+modules — definitions, dependencies and the transitions of the argument. It found no defect
+in the statements or the proofs, and five defects in the prose, all corrected here as well.
+It ran no second kernel and is not a review.
 
 ## Relation to existing work
 

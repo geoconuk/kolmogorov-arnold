@@ -64,8 +64,10 @@ In every form the inner functions are quantified **before** `f`: one family serv
 the weaker `∀ f, ∃ φ` form that the `lean-eval` benchmark poses.
 
 The statements are made for every `n`. The literature states `n ≥ 2`; the cases `n = 0`
-and `n = 1` are true and trivial (`n = 1`: take every inner function to be the identity and
-`g = f/3`), and the sanity checks below prove `n = 1` directly, without the theorem.
+and `n = 1` are true and trivial (`n = 1`: take `λ = 1`, every inner function the identity,
+and `g` one third of a continuous extension of `f` from `[0,1]` to `ℝ` — `f ∘ clamp / 3`;
+`f/3` itself need not be continuous off the cube), and the sanity checks below prove `n = 1`
+directly, without the theorem.
 
 ## Source
 
@@ -120,12 +122,20 @@ functions, citing Hedberg pp. 272–273 for the strictness, where Hedberg's Rema
 non-decreasing components; the argument that yields strictness is Kahane's. Morris was
 checked on 2026-09-11 and is not among the five primaries the statements were read against.
 
-Other departures, all strengthenings and all deliberate: statements for every `n` (the
-sources: `n ≥ 2`; `n ≤ 1` is true and trivial); inner functions continuous on all of `ℝ`
-rather than on `[0,1]` (extend linearly, which preserves monotonicity); outer function
-continuous on `ℝ` (Hedberg states it so; the others use a compact interval — Tietze). The
-sources' normalisations — `φ(0) = 0`, `φ(1) = 1`, values in `[0,1]`, `∑λ_p = 1`,
-ℚ-independence of the `λ_p` — are proof devices and are not claimed. The `n = 2` instance in
+Other departures, all deliberate, in both directions. Strengthened: statements for every
+`n` (the sources: `n ≥ 2`; `n ≤ 1` is true and trivial); inner functions continuous on all
+of `ℝ` rather than on `[0,1]` (extend linearly, which preserves monotonicity); outer function
+continuous on `ℝ` (Hedberg states it so; the others use a compact interval — Tietze).
+Omitted: the conditions the sources place on the objects they construct — Kahane's
+`φ(0) = 0`, `φ(1) = 1`, values in `[0,1]` and `λ_p` distinct with `∑λ_p = 1`; Hedberg's
+ℚ-independence of the `λ_p`; Lorentz's values in `[0,1]`; Sprecher's Hölder class. They are
+proof devices, and the conclusions here neither assert nor imply them — the Lorentz–Sprecher
+form says nothing of the `λ_p` beyond positivity. An existential conclusion that omits a
+conjunct is weaker in that respect, so against each source's own formulation the statements
+here strengthen some clauses and omit others, and neither contains the other as stated. The
+exception is Kolmogorov's: his statement carries no condition beyond continuity, and
+`kolmogorov_arnold` strengthens it and omits nothing. What all three match is the theorem as
+it is usually cited, which carries none of the omitted conditions. The `n = 2` instance in
 factored form has the shape of the theorem of S. Dzhenzher and A. Skopenkov, *A structured
 proof of Kolmogorov's Superposition Theorem*, arXiv:2105.00408, who fix the weights as `1`
 and `√2` and take continuous `φ_k : [0,1] → [0,1]`; ours asserts only positivity of the
