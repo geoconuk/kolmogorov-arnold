@@ -10,7 +10,7 @@ import KolmogorovArnold.Levels
 # The approximating tuple of inner functions
 
 Support module for Layer 2 of the Kolmogorov–Arnold development (the density of the
-approximation sets); it belongs to the roof that will state the representation theorem.
+approximation sets); it belongs to the roof that states the representation theorem, `Theorem.lean`.
 
 Given a tuple `φ` of inner functions and integers `N, M ≥ 1`, the **approximant** of rank `q` is
 the staircase of rank `q` on the `u = N t` line whose levels are the rational `level φ N M q j`

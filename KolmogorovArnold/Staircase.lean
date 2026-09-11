@@ -10,7 +10,7 @@ import KolmogorovArnold.InnerSpace
 # Staircase functions
 
 Support module for Layer 2 of the Kolmogorov–Arnold development (the density of the
-approximation sets); it belongs to the roof that will state the representation theorem.
+approximation sets); it belongs to the roof that states the representation theorem, `Theorem.lean`.
 
 The approximating inner functions of Hedberg's Lemma 2 (his property a)) are constant on each
 cell of their rank and vary only across the gaps. Rather than define such a function piecewise,

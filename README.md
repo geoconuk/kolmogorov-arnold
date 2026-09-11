@@ -2,10 +2,16 @@
 
 A Lean 4 formalisation of the Kolmogorov–Arnold representation theorem.
 
-**Private, pending the handover.** The development is complete and `sorry`-free: the theorem
-is proved in `KolmogorovArnold/Theorem.lean` in the three forms fixed in `Target/Roof.lean`
-before any layer was built. This repository is made public only after the handover to
-`lean-misc-math` described below; see *Status* for where it actually is.
+**This is the development record; the published copy lives elsewhere.** The development is
+complete and `sorry`-free: the theorem is proved in `KolmogorovArnold/Theorem.lean` in the
+three forms fixed in `Target/Roof.lean` before any layer was built. The modules were then
+copied, with their statements and proofs unchanged, into
+[`geoconuk/lean-misc-math`](https://github.com/geoconuk/lean-misc-math) as
+`MiscMath/Analysis/KolmogorovArnold.lean` and the support modules beneath it, released there
+as `v0.3.0`. Use that copy: it is the one under that repository's audit, conventions and
+release discipline, and the one a citation should name. This repository stays as it was at
+the handover, so that the plan, the layers and the fixed target can be read in the order they
+happened.
 
 ## What this is for
 
@@ -29,26 +35,32 @@ the inner functions depend on `f` and is a much weaker statement.
 
 This repository is produced with Claude (Anthropic's model, via Claude Code), and the split
 of work is the one `lean-misc-math` uses; it is stated here so that nothing below reads as a
-claim of manual work that was not done. *Development-stage wording: to be revised against
-what was actually read before this repository is made public.*
+claim of manual work that was not done.
 
-**George A. Constantinides — selection, specification, direction, reading.** Chose the
-theorem and the target form of the statement, decided the route, the working arrangement and
-where the result will live. Reads the published surface — this README and the top-level
-theorem statements — and those reads are the human contribution the arrangement depends on.
+**George A. Constantinides — selection, specification, direction, and the read of the three
+statements.** Chose the theorem and the target form of the statement, decided the route, the
+working arrangement and where the result lives. Read the three theorem statements of
+`Target/Roof.lean` — `kolmogorov_arnold_lorentz_sprecher`, `kolmogorov_arnold_lorentz` and
+`kolmogorov_arnold` — against the five primary papers on 2026-09-10 and agreed them, before
+any layer above 0 was built; `Target/TypeCheck.lean` proves the theorems in
+`KolmogorovArnold/Theorem.lean` carry those statements verbatim. That read is the whole of the
+human read, and it is the human contribution the arrangement depends on. He also reads this
+README.
 
 **Claude — everything mechanical.** The survey of existing formalisations; the Lean
 statements and every proof term; the port of the check scripts and axiom audit from
-`lean-misc-math`; the commit messages; the draft of this README. What gets read depends on
-what it is. The published surface above gets George's read. Proofs, supporting lemmas and
-working documents such as commit messages are verified by Lean's kernel and audited for
-axioms, but are not read by anyone, human or otherwise. No claim is made that the proofs are
+`lean-misc-math`; the commit messages; the plan; the draft of this README. Everything other
+than the three statements above — the statements and proofs of the support modules under
+`KolmogorovArnold/`, their docstrings, and the working documents — is verified by Lean's
+kernel and audited for axioms, and may be read by no one. No claim is made that the proofs are
 novel, elegant or idiomatic — only that they are correct.
 
 The commit history is in George's name alone, as in `lean-misc-math`, because this section
 and the per-file `## Provenance` docstrings are where machine generation is disclosed; a
-trailer on every commit would repeat it without adding information. Each result module's
-header line and `## Provenance` section record the same division for that file.
+trailer on every commit would repeat it without adding information. Each module's header line
+and `## Provenance` section record the same division for that file: `Theorem.lean`'s says the
+three statements were read, and each support module's says that its own were not advertised
+and may be read by no one.
 
 A blind read-back — a fresh agent given a Lean statement and nothing else, asked to write out
 what it literally asserts — is run on statements before they are read, as `lean-misc-math`
@@ -85,16 +97,22 @@ theorems, so the statements proved are the statements that were read.
 | 4 | iteration to exact representation on the cube (`Representation`) | **complete, audited** |
 | 5–6 | extension of the inner functions to `ℝ`; the three theorems and their sanity checks (`Theorem`) | **complete, audited** |
 
-What remains is not Lean: George's read of the result-module statements added since the target
-was fixed (listed in the parent repository's resume note), the handover into `lean-misc-math`,
-and the publication steps, each on his instruction.
+The handover into `lean-misc-math` is done (below). Registration and publication steps, if
+any, happen from there, each on George's instruction.
 
 ## Relationship to `lean-misc-math`
 
-Development happens here; the finished modules are **copied** into
-`geoconuk/lean-misc-math` under `MiscMath/Analysis/KolmogorovArnold/`, never taken as a Lake
-dependency — that repository's axiom audit is scoped to its own namespace and would not walk
-a dependency's declarations.
+Development happened here; the finished modules were **copied** into
+`geoconuk/lean-misc-math` under `MiscMath/Analysis/KolmogorovArnold/` on 2026-09-11, never
+taken as a Lake dependency — that repository's axiom audit is scoped to its own namespace and
+would not walk a dependency's declarations. In the copy: `Theorem.lean` became the roof
+`MiscMath/Analysis/KolmogorovArnold.lean`, with the three theorems and their sanity checks
+byte-identical and only the namespace changed (`MiscMath.Analysis`); `Inner.extend` and its
+three lemmas moved, verbatim, into a support module `Extend.lean`; the eleven other modules
+have their imports and namespace renamed and no other change to code; and the support-module
+docstrings were rewritten as support docstrings, since there the advertised statements are
+named once, in the roof's `## Provenance`. `Target/` was not copied — a Palomar Challenge, if
+one is made, is prepared in that repository's `Palomar/` directory.
 
 The `scripts/` checks and the `Audit.lean` / `Meta/AxiomAudit.lean` pattern are near-verbatim
 copies from that repository, retargeted by namespace. **They are advisory here.** Its copies

@@ -52,7 +52,9 @@ remark alone, and this module is where that remark is proved.
 Result selected by George A. Constantinides as Layer 1 of the Kolmogorov–Arnold plan, on
 2026-09-10, when the primaries were compared against the target statements and Kahane's remark
 was identified as the source for the strictness clause. Lean statements and proofs
-machine-generated. The statements have had a best-effort read; the proofs have not been read.
+machine-generated. This is a support module: its statements are not advertised — the
+advertised statements are the three theorems of `Theorem.lean`, which George read against the
+primaries — and they, like the proofs, may be read by no one.
 
 ## Sanity checks
 

@@ -46,8 +46,9 @@ p. 231), imported from `StrictlyIncreasing.lean` through `Dense.inter_of_Gδ`; H
 ## Provenance
 
 Result selected by George A. Constantinides as Layer 3 of the Kolmogorov–Arnold plan. Lean
-statements and proofs machine-generated. The statement has had a best-effort read; the proofs
-have not been read.
+statements and proofs machine-generated. This is a support module: its statement is not
+advertised — the advertised statements are the three theorems of `Theorem.lean`, which George
+read against the primaries — and it, like the proofs, may be read by no one.
 
 ## Sanity checks
 

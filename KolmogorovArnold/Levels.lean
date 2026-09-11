@@ -12,7 +12,7 @@ import Mathlib.LinearAlgebra.LinearIndependent.Defs
 # Rational levels for the staircases
 
 Support module for Layer 2 of the Kolmogorov–Arnold development (the density of the
-approximation sets); it belongs to the roof that will state the representation theorem.
+approximation sets); it belongs to the roof that states the representation theorem, `Theorem.lean`.
 
 Hedberg's approximating inner functions (Lemma 2, properties a) and b), p. 269) are constant on
 each cell with a **rational** value, the values on distinct cells of one rank are distinct, and a

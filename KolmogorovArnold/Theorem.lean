@@ -132,7 +132,7 @@ were then read by George against the papers themselves at the page references re
 plan, and agreed. The statements here are those statements, unchanged; `Target/TypeCheck.lean`
 ascribes each Target statement to the theorem proved here, so a drift between the two would
 fail to build. The proofs, and the supporting modules they rest on, are machine-generated and
-have not been read by anyone; they are verified by Lean's kernel and audited for axioms.
+may be read by no one; they are verified by Lean's kernel and audited for axioms.
 
 ## Sanity checks
 

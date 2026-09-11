@@ -11,7 +11,7 @@ import Mathlib.Data.Fintype.BigOperators
 # The cell system
 
 Support module for Layer 2 of the Kolmogorov–Arnold development (the density of the
-approximation sets); it belongs to the roof that will state the representation theorem.
+approximation sets); it belongs to the roof that states the representation theorem, `Theorem.lean`.
 
 Hedberg's *red intervals* (Lemma 2, p. 269), in general dimension and on the rescaled line
 `u = N t`, so that every endpoint is an integer. There are `m` ranks `q : Fin m` (`m = 2n + 1` in

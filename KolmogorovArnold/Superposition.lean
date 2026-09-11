@@ -60,8 +60,9 @@ The inner sums and the superposition depend continuously on the tuple `ψ`
 
 Definitions and statements selected by George A. Constantinides as Layer 1 of the
 Kolmogorov–Arnold plan, from a reading of Hedberg's and Kahane's proofs. Lean statements and
-proofs machine-generated. The statements have had a best-effort read; the proofs have not
-been read.
+proofs machine-generated. This is a support module: its statements are not advertised — the
+advertised statements are the three theorems of `Theorem.lean`, which George read against the
+primaries — and they, like the proofs, may be read by no one.
 
 ## Sanity checks
 

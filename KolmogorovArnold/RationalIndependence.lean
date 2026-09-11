@@ -36,8 +36,9 @@ Liouville (1844), as formalised in Mathlib's `NumberTheory.Transcendental.Liouvi
 ## Provenance
 
 Result selected by George A. Constantinides as Layer 0 of the Kolmogorov–Arnold plan.
-Lean statement and proof machine-generated. The statement has had a best-effort read; the
-proof has not been read.
+Lean statement and proof machine-generated. This is a support module: its statement is not
+advertised — the advertised statements are the three theorems of `Theorem.lean`, which George
+read against the primaries — and it, like the proof, may be read by no one.
 
 ## Sanity checks
 

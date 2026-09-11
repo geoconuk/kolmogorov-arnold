@@ -10,8 +10,9 @@ import Mathlib.Topology.Baire.CompleteMetrizable
 /-!
 # The inner-function space
 
-Support module for the Kolmogorov–Arnold development; it belongs to the roof that will state
-the representation theorem (`Target/Roof.lean` until Layer 6 lands).
+Support module for the Kolmogorov–Arnold development; it belongs to the roof that states the
+representation theorem, `Theorem.lean`. Its declarations are not advertised and may be read by
+no one.
 
 The Baire-category proof of the superposition theorem (Hedberg 1971, Kahane 1975) works in a
 complete metric space of candidate inner functions and shows that the tuples which work are
