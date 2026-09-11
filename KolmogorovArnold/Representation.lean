@@ -43,8 +43,8 @@ Theory 13 (1975), p. 231, runs the same induction with `h_j = γ(f_j)`. Both are
 
 ## Provenance
 
-Result selected by George A. Constantinides as Layer 4 of the Kolmogorov–Arnold plan. Lean
-statements and proofs machine-generated. This is a support module: its statements are not
+Result selected by George A. Constantinides as Layer 4 of the development. Lean statements
+and proofs machine-generated. This is a support module: its statements are not
 advertised — the advertised statements are the three theorems of `Theorem.lean`, which George
 read against the primaries — and they, like the proofs, may be read by no one.
 

@@ -63,9 +63,9 @@ dense in the space of all such tuples, with respect to uniform convergence in ev
 
 ## Provenance
 
-Result selected by George A. Constantinides as Layer 2 of the Kolmogorov–Arnold plan. Lean
-statements and proofs machine-generated, from the blueprint written into the plan on 2026-09-10
-after reading both sources. This is a support module: its statement is not advertised — the
+Result selected by George A. Constantinides as Layer 2 of the development. Lean statements
+and proofs machine-generated, from a blueprint drawn up on 2026-09-10 after reading both
+sources. This is a support module: its statement is not advertised — the
 advertised statements are the three theorems of `Theorem.lean`, which George read against the
 primaries — and it, like the proofs, may be read by no one.
 

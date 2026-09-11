@@ -18,7 +18,7 @@ that the audit stays green and meaningful, and so that the statements were fixed
 back *before* the layers were built toward them. **The theorems are now proved**, with these
 statements unchanged, in `KolmogorovArnold/Theorem.lean`; `Target/TypeCheck.lean` ascribes each
 statement here to the library's theorem, so the two cannot drift apart without a build failing.
-This file is the Challenge.
+This file is the fixed target.
 
 Three statements, each implying the next, named for who is credited with the *statement*
 (not for the proof route): the Lorentz–Sprecher form, which the proof will establish;
@@ -58,8 +58,8 @@ and `n = 1` are true and trivial (`n = 1`: take every inner function to be the i
 
 ## Source
 
-All five primaries were read on 2026-09-10 and each Lean statement compared against them; the
-comparison is recorded in the plan. What each states:
+All five primaries were read on 2026-09-10 and each Lean statement compared against them.
+What each states:
 
 - **Kolmogorov**, *On the representation of continuous functions of several variables by
   superposition of continuous functions of one variable and addition*, Dokl. Akad. Nauk SSSR
@@ -130,7 +130,8 @@ Result selected by George A. Constantinides. The Lean statements were written by
 had a blind read-back; the primaries were obtained and read on 2026-09-10 and the statements
 compared against them clause by clause, which added the monotonicity clause to Lorentz's form
 and produced the account above. **George then read all three statements against the papers
-themselves, at the page references recorded in the plan, and agreed them on 2026-09-10.** That
+themselves, at the page references given under `## Source`, and agreed them on 2026-09-10.**
+That
 read is the human contribution this file's statements rest on. Nothing here is proved except
 the two derivations and the sanity checks; `kolmogorov_arnold_lorentz_sprecher` is `sorry` here
 as the Challenge surface, and is proved, with this statement, in `KolmogorovArnold/Theorem.lean`.
@@ -155,7 +156,8 @@ stronger than the five primaries' stated theorems.
 
 ## Relation to Mathlib
 
-Nothing in Mathlib states or approaches this theorem; see the survey in the plan. The
+Nothing in Mathlib states or approaches this theorem; the README records the survey of other
+libraries. The
 statements use only `Continuous`, `ContinuousOn`, `StrictMono`, `Set.Icc` on `Fin n → ℝ`,
 and finite sums.
 -/

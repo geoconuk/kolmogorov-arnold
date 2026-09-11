@@ -15,23 +15,19 @@ maxSynthPendingDepth = 3
 [[require]]
 name = "mathlib"
 scope = "leanprover-community"
-# Held at the parent repository's pin for now, so the warm Mathlib cache is reusable and
-# imported modules need no repinning. Bump to current Mathlib before any Lean Pool handover
-# -- the pool asks for a warm build against latest, and nothing here needs Palomar's
-# ancestor-of-master constraint.
+# The same Mathlib as `lean-misc-math`, which publishes these modules, so that the two copies
+# build against one Mathlib.
 rev = "v4.33.0"
 
 [[lean_lib]]
 name = "KolmogorovArnold"
 globs = ["KolmogorovArnold.*"]
 
-# The statement surface: the theorems this development exists to prove, fixed before the layers
-# were built, with the one that carries the content stated `sorry`. Deliberately *not* in
-# `defaultTargets` and outside the `KolmogorovArnold.*` glob -- the same arrangement
-# `lean-misc-math` uses for a Palomar Challenge -- so that `lake build`, the audit and the three
-# checks stay green and meaningful. The statements are now proved in
-# `KolmogorovArnold/Theorem.lean`; this file is the Challenge surface. Build it explicitly with
-# `lake build Target`.
+# The statement surface: the three theorems as fixed before the proof was built, importing only
+# Mathlib, with the one that carries the content left `sorry`. Deliberately *not* in
+# `defaultTargets` and outside the `KolmogorovArnold.*` glob, so that `lake build`, the audit and
+# the three checks cover the library alone and stay meaningful. The statements are proved,
+# unchanged, in `KolmogorovArnold/Theorem.lean`. Build this explicitly with `lake build Target`.
 [[lean_lib]]
 name = "Target"
 roots = ["Target.Roof"]

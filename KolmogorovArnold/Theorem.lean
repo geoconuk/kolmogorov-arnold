@@ -69,8 +69,8 @@ and `n = 1` are true and trivial (`n = 1`: take every inner function to be the i
 
 ## Source
 
-All five primaries were read on 2026-09-10 and each Lean statement compared against them; the
-comparison is recorded in the plan. What each states:
+All five primaries were read on 2026-09-10 and each Lean statement compared against them.
+What each states:
 
 - **Kolmogorov**, *On the representation of continuous functions of several variables by
   superposition of continuous functions of one variable and addition*, Dokl. Akad. Nauk SSSR
@@ -140,8 +140,9 @@ why the name is `_lorentz_sprecher` and not `_sprecher` alone.
 Result selected by George A. Constantinides. The Lean statements were fixed in
 `Target/Roof.lean` on 2026-09-10, before any layer above 0 was built: they were written by
 Claude, had a blind read-back, were compared clause by clause against the five primaries, and
-were then read by George against the papers themselves at the page references recorded in the
-plan, and agreed. The statements here are those statements, unchanged; `Target/TypeCheck.lean`
+were then read by George against the papers themselves, at the page references given above
+under `## Source`, and agreed. The statements here are those statements, unchanged;
+`Target/TypeCheck.lean`
 ascribes each Target statement to the theorem proved here, so a drift between the two would
 fail to build. The proofs, and the supporting modules they rest on, are machine-generated and
 may be read by no one; they are verified by Lean's kernel and audited for axioms.

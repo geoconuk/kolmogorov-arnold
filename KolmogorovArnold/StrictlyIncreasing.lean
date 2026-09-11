@@ -50,7 +50,7 @@ remark alone, and this module is where that remark is proved.
 
 ## Provenance
 
-Result selected by George A. Constantinides as Layer 1 of the Kolmogorov–Arnold plan, on
+Result selected by George A. Constantinides as Layer 1 of the development, on
 2026-09-10, when the primaries were compared against the target statements and Kahane's remark
 was identified as the source for the strictness clause. Lean statements and proofs
 machine-generated. This is a support module: its statements are not advertised — the
