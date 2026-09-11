@@ -147,10 +147,12 @@ are the same.
 All three were compared clause by clause against the primary papers — Kolmogorov 1957,
 Lorentz 1962, Sprecher 1965, Hedberg 1971, Kahane 1975 — on 2026-09-10; the file's `## Source`
 section records what each states and where the Lean statements deliberately go beyond them.
-The one clause stronger than any stated theorem is `StrictMono` in the strongest form, kept
-on Kahane's remark that quasi-every increasing `φ` is strictly increasing. It is a separate lake target outside
-the audited library, the arrangement `lean-misc-math` uses for a Palomar Challenge, so the
-four checks stay green while the layers are built. Build it with:
+The one clause stronger than any of the five primaries' stated theorems is `StrictMono` in
+the strongest form, kept on Kahane's remark that quasi-every increasing `φ` is strictly
+increasing (Morris, Bull. Amer. Math. Soc. 58 (2021), Theorem 4.2, states the refinement).
+`Target/Roof.lean` is a separate lake target outside the audited library, the arrangement
+`lean-misc-math` uses for a Palomar Challenge, so the four checks stay green while the layers
+are built. Build it with:
 
 ```bash
 lake build Target
