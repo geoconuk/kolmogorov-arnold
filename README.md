@@ -228,7 +228,12 @@ and `MiscMath.Analysis.kolmogorov_arnold`, documented at
 
 That copy is the one under a release discipline and a Zenodo DOI, and the one a citation
 should name: concept DOI [10.5281/zenodo.22648192](https://doi.org/10.5281/zenodo.22648192),
-which resolves to the newest release. This repository is kept as the development it was
+which resolves to the newest release. Its three statements are registered in the
+[Palomar](https://palomar-registry.org) registry of Lean-verified mathematics as
+[`PALOMAR-2026-09-11-000002`](https://palomar-registry.org/entry?id=PALOMAR-2026-09-11-000002&version=1),
+version 1: the proofs replayed through Lean's kernel and through NanoDa, and the statements
+checked against their informal claim by an automated review, which is not peer review and
+not a human read of the proof. This repository is kept as the development it was
 built in, with the fixed target and its type check, and is not a Lake dependency of the
 published copy.
 
